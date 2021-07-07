@@ -1,0 +1,33 @@
+<?php
+require_once 'style.php';
+ 
+if (isset($_GET['jid'])) {
+    // get details of the uploaded file
+    $jid = $_GET['jid'];
+
+    if (!preg_match('/^[a-f0-9]+$/', $jid)) {
+        
+        echo "bad job ID";
+        
+    } else {
+
+        print '<BR><pre style="line-height:1.1;">';
+        $tspid=`tsp -l | grep $jid| cut -f 1 -d' '`;
+        print "tsp -k $tspid </pre>";
+        print `tsp -k $tspid`;
+        $runfile="/var/hashcrack/".$jid.".run";
+        print "<br>Re-run: </pre>";
+        print `tsp $runfile`;
+        print "</pre><BR>";
+    }
+    
+} else {
+
+    print '<BR><h2>job list</h2><pre style="line-height:1.1;">';
+    print `tsp -l`;
+    print "</pre><BR>";
+
+
+}
+
+?>

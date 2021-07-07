@@ -1,0 +1,8 @@
+<?php
+$uploadFileDir = '/var/hashcrack/';
+$hashcatWebDir = '/var/hashcrack/';
+$hashcatRun = '/home/www-data/hashcat-6.2.2/';
+$hashcatRO = '/home/www-data/hc-ro/';
+$dictDir = '/root/dict/';
+$rulesDir = '/home/www-data/hashcrack/rules/';
+?>
