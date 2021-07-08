@@ -82,7 +82,7 @@ if (empty($_GET['jid'])) {
                 $dothis .= $line." --outfile ".$dest_path.".out --status-timer=1 --status >> $dest_path.status 2>&1\n";
             }           
 
-            $runme="#!/bin/bash\ncd .".$hashcatRun."\n".$dothis;
+            $runme="#!/bin/bash\ncd ".$hashcatRun."\n".$dothis;
 
             $runfile=$hashcatWebDir.$jid.".run";
             
