@@ -34,8 +34,8 @@ if (preg_match('/(^|:)[A-Za-z0-9\./]{43}$/',$hash)==1) { return "5700:Cisco type
 if (preg_match('/(^|:)[A-Fa-f0-9]{16}:[A-Fa-f0-9]{32}:[A-Fa-f0-9]{100}/',$hash)==1) { return "5600:NetLMv2"; }
 if (preg_match('/(^|:)[A-Fa-f0-9]{32}:[A-Fa-f0-9]{210}$/',$hash)==1) { return "5600:NetLMv2"; }
 if (preg_match('/(^|:)[a-fA-f0-9]{48}:[A-fa-f0-9]{48}:/',$hash)==1) { return "5500:NetLMv1"; }
-if (preg_match('/(^|:)[A-Za-z0-9\./]{16}$/',$hash)==1) { return "2400:Cisco ASA"; }
-if (preg_match('/(^|:)[A-Za-z0-9\./]{13}$/',$hash)==1) { return "1500:descrypt"; }
+if (preg_match('/(^|:)[A-Za-z0-9\.\/]{16}$/',$hash)==1) { return "2400:Cisco ASA"; }
+if (preg_match('/(^|:)[A-Za-z0-9\.\/]{13}$/',$hash)==1) { return "1500:descrypt"; }
 if (preg_match('/(^|:)[A-Fa-f0-9]{40}$/',$hash)==1) { return "100:SHA1"; }
 if (preg_match('/(^|:)[A-Fa-f0-9]{64}$/',$hash)==1) { return "1400:SHA256"; }
 if (preg_match('/(^|:)[A-Fa-f0-9]{96}$/',$hash)==1) { return "10800:SHA384"; }
