@@ -32,7 +32,12 @@ if (isset($_POST['uploadBtn']) && $_POST['uploadBtn'] == 'Upload') {
 
 if (isset($_GET['jid'])) {
     $jid=$_GET['jid'];
-    $dest_path = $uploadFileDir . $jid;
+    if (!preg_match('/^[a-f0-9]+$/', $jid)) {
+        echo "bad job ID";
+        die;
+    } else {  
+        $dest_path = $uploadFileDir . $jid;
+    }
 }
 
 // add job to list of jobs...
@@ -47,8 +52,6 @@ if ($jid !== '') {
         if (strpos($jid,$ocv) === false) {
             $cookie_value=$ocv.",".$jid;            
         }
-
-        //echo" **** ".$jid." **** ".$cookie_value." **** ";
     }
     
     setcookie($cookie_name, $cookie_value, time() + (86400 * 30), '/'); // 86400 = 1 day
@@ -63,9 +66,10 @@ echo "First line of file is <pre style=\"line-height:1\">".htmlspecialchars($lin
             echo "This looks like hash type ".$type;
             echo"<br>";
 
-            $exec="cd /home/www-data/hashcrack/ && python3 /home/www-data/hashcrack/hashcrack.py -Z -i $dest_path | grep RUN: | sed 's/RUN://' ";
+            $exec="cd ".$hashcrackDir." && python3 hashcrack.py -Z -i $dest_path | grep RUN: | sed 's/RUN://' ";
 
 if (empty($_GET['jid'])) {
+    
             echo "<br>We'll do this:<br><pre style=\"line-height:1\">";
                 
             $hccmd=rtrim(shell_exec($exec));           
@@ -78,18 +82,24 @@ if (empty($_GET['jid'])) {
                 $dothis .= $line." --outfile ".$dest_path.".out --status-timer=1 --status >> $dest_path.status 2>&1\n";
             }           
 
-            $runme="#!/bin/bash\ncd /home/www-data/hashcat-6.2.2\n".$dothis;           
+            $runme="#!/bin/bash\ncd .".$hashcatRun."\n".$dothis;
 
-            $runfile="/var/hashcrack/".$jid.".run";
+            $runfile=$hashcatWebDir.$jid.".run";
             
             file_put_contents($runfile, $runme);
             $res=`chmod u+x $runfile`;
 } else {
+
+    if (!preg_match('/^[a-f0-9]+$/', $jid)) {
+        echo "bad job ID"; die;
+    } else {
+
                 echo "<br>We're doing this:<br><pre style=\"line-height:1\">";
-                 $runfile="/var/hashcrack/".$jid.".run";
+                 $runfile=$hashcatWebDir.$jid.".run";
 
                  echo file_get_contents($runfile);
                  echo "</pre>";
+    }
 }
 
             //print "$runme";
@@ -99,9 +109,12 @@ if (empty($_GET['jid'])) {
     print "<p>Queuing job now...<br>";
     $atq = `tsp $runfile`;
 } else {
-    print "<p>Not queuing because of GET request - use status &gt; restart if needed. <br>";
+    if (!preg_match('/^[a-f0-9]+$/', $jid)) {
+        echo "bad job ID"; die; 
+    } else {        
+        print "<p>Not queuing because of GET request - use status &gt; restart if needed. <br>";
+    }
 }
-
                     
             echo "<br> <a href=\"upload.php?jid=$jid\">refresh this page</a> without queuing the job again | <a href=\"job.php?jid=$jid\">Status</a> in single window  (also, terminate, restart) | <a href=\"final.php?jid=$jid\">Show cracked</a> in single window | <a href=\"graph-it.php?jid=$jid\">Graph frequency</a> | <a href=\"graph.php?jid=$jid\">Graph quality</a> | <a href=\"joblist.php\">View submitted jobs</a> (from cookie)";
 

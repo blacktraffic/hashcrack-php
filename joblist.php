@@ -1,7 +1,6 @@
 <?php
 require_once 'style.php';
-
-
+require_once 'inc.php';
 
 $cookie_name = 'hashcrack_jobs';
 
@@ -15,18 +14,20 @@ if(!isset($_COOKIE[$cookie_name])) {
     foreach($jobs as $jid) {
         $jid = trim($jid);
 
-        echo "Job $jid\n<br>";
+        if (!preg_match('/^[a-f0-9]+$/', $jid)) {
+            echo "bad job ID";
+        } else {
+
+            echo "Job $jid\n<br>";
         
-        echo "<br>  <a href=\"job.php?jid=$jid\">Status</a> | <a href=\"kill.php?jid=$jid\">TERMINATE JOB</a> | <a href=\"killrestart.php?jid=$jid\">TERMINATE and RESTART JOB</a> | <a href=\"final.php?jid=$jid\">RESULTS</a> <br>";
-    
-        // directory in which the uploaded file will be moved
-        $uploadFileDir = '/var/hashcrack/';
-
-        $filepath=$uploadFileDir."/".$jid.".status";
-
-        echo "<hr><h2>CRACKED<h2><iframe src=\"final.php?jid=$jid\" width=100% height=100></iframe>";
-
-        echo "<hr><h2>STATUS<h2><iframe src=\"job.php?jid=$jid&short=true\" width=100% height=100></iframe>";
+            echo "<br>  <a href=\"job.php?jid=$jid\">Status</a> | <a href=\"kill.php?jid=$jid\">TERMINATE JOB</a> | <a href=\"killrestart.php?jid=$jid\">TERMINATE and RESTART JOB</a> | <a href=\"final.php?jid=$jid\">RESULTS</a> <br>";
+            
+            $filepath=$uploadFileDir."/".$jid.".status";
+            
+            echo "<hr><h2>CRACKED<h2><iframe src=\"final.php?jid=$jid\" width=100% height=100></iframe>";
+            
+            echo "<hr><h2>STATUS<h2><iframe src=\"job.php?jid=$jid&short=true\" width=100% height=100></iframe>";
+        }
     }
     
 }

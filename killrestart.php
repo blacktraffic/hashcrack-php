@@ -1,5 +1,6 @@
 <?php
 require_once 'style.php';
+require_once 'inc.php';
  
 if (isset($_GET['jid'])) {
     // get details of the uploaded file
@@ -15,19 +16,12 @@ if (isset($_GET['jid'])) {
         $tspid=`tsp -l | grep $jid| cut -f 1 -d' '`;
         print "tsp -k $tspid </pre>";
         print `tsp -k $tspid`;
-        $runfile="/var/hashcrack/".$jid.".run";
+        $runfile=$hashcatWebDir.$jid.".run";
         print "<br>Re-run: </pre>";
         print `tsp $runfile`;
         print "</pre><BR>";
     }
     
-} else {
-
-    print '<BR><h2>job list</h2><pre style="line-height:1.1;">';
-    print `tsp -l`;
-    print "</pre><BR>";
-
-
-}
+} 
 
 ?>

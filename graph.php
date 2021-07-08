@@ -1,5 +1,6 @@
 <?php
 require_once 'style.php';
+require_once 'inc.php';
  
 if (isset($_GET['jid'])) {
     // get details of the uploaded file
@@ -9,12 +10,9 @@ if (isset($_GET['jid'])) {
         echo "bad job ID";
     } else {
     
-        // directory in which the uploaded file will be moved
-        $uploadFileDir = '/var/hashcrack/';
-
         $filepath=$uploadFileDir."/".$jid.".status";
 
-        $outp = shell_exec("python3 /var/www/html/graph-by-quality.py $filepath ");
+        $outp = shell_exec("python3 ".$wwwroot."graph-by-quality.py $filepath ");
         
         $outp = `cat $filepath-quality.html`;
         print $outp;        

@@ -1,5 +1,6 @@
 <?php
 require_once 'style.php';
+require_once 'inc.php';
  
 if (isset($_GET['jid'])) {
     // get details of the uploaded file

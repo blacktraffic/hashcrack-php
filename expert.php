@@ -19,7 +19,7 @@ if (isset($_POST['uploadBtn']) ) {
         $jid=$newFileName;
     
         // directory in which the uploaded file will be moved
-        $uploadFileDir = '/var/hashcrack/';
+
         $dest_path = $uploadFileDir . $newFileName;
 
         $line="UNKNOWN-UPLOAD-FAILED";
@@ -47,31 +47,31 @@ if (isset($_POST['uploadBtn']) ) {
 
             if ($done==0 && !empty($_POST['mask'])) {
                 $mask=$_POST['mask'];                
-                $exec="cd /home/www-data/hashcrack/ && python3 /home/www-data/hashcrack/hashcrack.py -Z $typeoverride  -i $dest_path --mask $mask | grep RUN: | sed 's/RUN://' ";
+                $exec="cd ".$hashcrackDir." && python3 hashcrack.py -Z $typeoverride  -i $dest_path --mask $mask | grep RUN: | sed 's/RUN://' ";
                 $done=1;
             }
                 
             if ($done==0 && !empty($_POST['lmask'])) {
                 $lmask=$_POST['lmask']; 
-                $exec="cd /home/www-data/hashcrack/ && python3 /home/www-data/hashcrack/hashcrack.py -Z $typeoverride  -i $dest_path $dictoverride --lmask $lmask | grep RUN: | sed 's/RUN://' ";
+                $exec="cd ".$hashcrackDir." && python3 hashcrack.py -Z $typeoverride  -i $dest_path $dictoverride --lmask $lmask | grep RUN: | sed 's/RUN://' ";
                 $done=1;
             }
 
             if ($done==0 && !empty($_POST['rmask'])) {
                 $rmask=$_POST['rmask'];
-                $exec="cd /home/www-data/hashcrack/ && python3 /home/www-data/hashcrack/hashcrack.py -Z $typeoverride  -i $dest_path $dictoverride --rmask $rmask | grep RUN: | sed 's/RUN://' ";
+                $exec="cd ".$hashcrackDir." && python3 hashcrack.py -Z $typeoverride  -i $dest_path $dictoverride --rmask $rmask | grep RUN: | sed 's/RUN://' ";
                 $done=1;
             }
 
             if ($done==0 && !empty($_POST['rdict']) && !empty($_POST['ldict'])) {
                 $rdict=$_POST['rdict'];
                 $ldict=$_POST['ldict'];
-                $exec="cd /home/www-data/hashcrack/ && python3 /home/www-data/hashcrack/hashcrack.py -Z $typeoverride  -i $dest_path -d $ldict -e $rdict | grep RUN: | sed 's/RUN://' ";
+                $exec="cd ".$hashcrackDir." && python3 hashcrack.py -Z $typeoverride  -i $dest_path -d $ldict -e $rdict | grep RUN: | sed 's/RUN://' ";
                 $done=1;
             }
 
             if ($done==0) {
-                $exec="cd /home/www-data/hashcrack/ && python3 /home/www-data/hashcrack/hashcrack.py -Z $typeoverride $rulesoverride $dictoverride -i $dest_path | grep RUN: | sed 's/RUN://' ";
+                $exec="cd ".$hashcrackDir." && python3 hashcrack.py -Z $typeoverride $rulesoverride $dictoverride -i $dest_path | grep RUN: | sed 's/RUN://' ";
             }
 
             echo "<br>We're proposing to do this:<br><pre style=\"line-height:1\">";
@@ -84,9 +84,9 @@ if (isset($_POST['uploadBtn']) ) {
                 $dothis .= $line." --outfile ".$dest_path.".out --status-timer=1 --status >> $dest_path.status 2>&1\n";
             }
 
-            $runme="#!/bin/bash\ncd /home/www-data/hashcat-6.2.2\n".$dothis;
+            $runme="#!/bin/bash\ncd ".$hashcatRun."\n".$dothis;
 
-            $runfile="/var/hashcrack/".$jid.".run";
+            $runfile=$hashcatWebDir.$jid.".run";
             
             file_put_contents($runfile, $runme);
             $res=`chmod u+x $runfile`;
