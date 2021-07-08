@@ -9,7 +9,7 @@ if (isset($_GET['jid'])) {
     if (!preg_match('/^[a-f0-9]+$/', $jid)) {
         echo "bad job ID";
     } else {
-        header("Refresh:5; url=final.php?jid=$jid");
+        header("Refresh:5; url=job.php?jid=$jid");
     
         $filepath=$uploadFileDir.$jid.".status";
 
