@@ -10,9 +10,9 @@ if (isset($_GET['jid'])) {
         echo "bad job ID";
     } else {
     
-        $filepath=$uploadFileDir."/".$jid.".status";
+        $filepath=$uploadFileDir.$jid.".status";
 
-        $outp = shell_exec("python3 ".$wwwroot."graph-by-quality.py $filepath ");
+        $outp = shell_exec("python3 ".$wwwroot."/graph-by-quality.py $filepath ");
         
         $outp = `cat $filepath-quality.html`;
         print $outp;        
