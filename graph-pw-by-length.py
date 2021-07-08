@@ -24,7 +24,7 @@ freq=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 pos=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
 
 #first parse our pot file, or --show output
-with open(sys.argv[1]) as inf:
+with open(sys.argv[1], encoding="utf-8") as inf:
     for line in inf:
         try:
             pw = line.split(':')[-1]
