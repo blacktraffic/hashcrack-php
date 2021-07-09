@@ -77,12 +77,14 @@ require 'dict.php';
   </form>
 
 <?php
-print "<h2>Queue</h2>";
+print "<h2>Queue</h2>"; 
 print "<pre>Running : ".`tsp -l | grep running | wc -l`."</pre>";
 print "<pre>Queued:   ".`tsp -l | grep queued | wc -l`."</pre>";
 print "<pre>Finished: ".`tsp -l | grep finished | wc -l`."</pre>";
 
 print "<h2>GPU status</h2><pre>".`nvidia-smi --query-gpu=gpu_name,temperature.gpu,power.draw,utilization.gpu  --format=csv`."</pre>";
+
+print "<p><a href=\"stats.php\">GPU temp / fan graph</a></p>";
 ?>
 
 <p>
