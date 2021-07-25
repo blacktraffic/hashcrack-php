@@ -1,6 +1,8 @@
 <?php
 function regmap($hash)
 {
+    if (preg_match('/(^|:)(A|a)dministrator:500:[A-Fa-f0-9]{32}:[A-Fa-f0-9]{32}:/',$hash)==1) { return "pwdump:pwdump"; }
+    if (preg_match('/\/.+:[A-Fa-f0-9]{32}:/',$hash)==1) { return "1100:DCC"; }
     if (preg_match('/(^|:)[A-Fa-f0-9]{32}$/',$hash)==1) { return "0:md5"; }
     if (preg_match('/(^|:)\$1\$/',$hash)==1) { return "500:md5crypt"; }
     if (preg_match('/(^|:)\$krb5tgs\$23\$/',$hash)==1) { return "13100:kerberos ticket type 13100"; }
@@ -17,14 +19,12 @@ function regmap($hash)
     if (preg_match('/(^|:)sha1\$/',$hash)==1) { return "124:Django SHA1"; }
     if (preg_match('/(^|:)\$S\$/',$hash)==1) { return "7900:Drupal"; }
     if (preg_match('/(^|:)\$PHPS\$/',$hash)==1) { return "2612:PHPS"; }
-    if (preg_match('/(^|:)(A|a)dministrator:500:[A-Fa-f0-9]{32}:[A-Fa-f0-9]{32}:/',$hash)==1) { return "pwdump:pwdump"; }
     if (preg_match('/(^|:)\d+:[A-Fa-f0-9]{32}:[A-Fa-f0-9]{32}:/',$hash)==1) { return "pwdump:pwdump"; }
     if (preg_match('/(^|:)[A-Fa-f0-9]{32}:[A-Za-z0-9_]{1,10}$/',$hash)==1) { return "12:postgres"; }
     if (preg_match('/(^|:)\$2(a|b|y)/',$hash)==1) { return "3200:bcrypt"; }
     if (preg_match('/(^|:)sha512:/',$hash)==1) { return "12100:Cisco sha512 pbkdf2"; }
     if (preg_match('/(^|:)\$5\$/',$hash)==1) { return "7400:sha256crypt"; }
     if (preg_match('/(^|:)\$6\$/',$hash)==1) { return "1800:sha512crypt"; }
-    if (preg_match('/(^|:)[A-Fa-f0-9]{32}:[A-Fa-f0-9]{13,14}$/',$hash)==1) { return "1100:DCC / ms cache"; }
     if (preg_match('/(^|:)[A-Fa-f0-9]{32}:[A-Fa-f0-9]{6}$/',$hash)==1) { return "2611:vBulletin (2611)"; }
     if (preg_match('/(^|:)[A-Fa-f0-9]{32}:.{5}$/',$hash)==1) { return "2811:IPB (2811)"; }
     if (preg_match('/(^|:)[A-Fa-f0-9]{32}:[A-Fa-f0-9]{49}$/',$hash)==1) { return "8100:Citrix netscaler"; }

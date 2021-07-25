@@ -30,8 +30,16 @@ require_once 'inc.php';
     <div class="upload-wrapper">
     <p>
       <label for="file-upload"><input type="file" id="file-upload" name="uploadedFile"></label>
+
+
+                                                                       <p>
+                                                                            Optional crib file, e.g. containing company name, main office, etc. If you choose this, use a short wordlist, and big rules, e.g. nsav2dive.rule.
+
+      <label for="file-upload"><input type="file" id="file-upload" name="cribFile"></label>
+
+                                                                       <p>
                   Optional type override, e.g 1000, or 'ntlm' for NTLM: <label for="mask"><input type="text" name="type"></label>
-<p><br>At most one mask specified please : <br>
+                                                                                                                 <p><br>At most crib, OR one mask specified please : <br>
 Optional mask, e.g. ?d?d?d?d?d: <label for="mask"><input type="text" name="mask"></label>
       Optional left mask: <label for="mask"><input type="text" name="lmask"></label>
       Optional right mask: <label for="mask"><input type="text" name="rmask"></label>

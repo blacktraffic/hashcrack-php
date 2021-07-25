@@ -34,6 +34,22 @@ if (isset($_POST['uploadBtn']) ) {
             echo "First line of file is <pre style=\"line-height:1\">".htmlspecialchars($line)."</pre>";
 
             $error=0; $done=0;
+
+            // upload crib file if present
+            if (isset($_FILES['cribFile']) && $_FILES['uploadedFile']['error'] === UPLOAD_ERR_OK) {
+
+                $fileTmpPath = $_FILES['cribFile']['tmp_name'];
+
+                $cribFile=$dest_path.".crib";
+
+                if(move_uploaded_file($fileTmpPath, $cribFile)) {
+
+                    $exec="cd ".$hashcrackDir." && python3 hashcrack.py -Z $typeoverride  -i $dest_path -d $cribFile | grep RUN: | sed 's/RUN://' ";
+                    print "<P>$exec<p>";
+                    $done=1;
+                }
+            }
+            
             if (!empty($_POST['mask']) && !empty($_POST['lmask'])) { print "Can't specify mask and lmask $mask<br>"; }
             if (!empty($_POST['mask']) && !empty($_POST['rmask'])) { print "Can't specify mask and rmask $rmask<br>"; }
             if (!empty($_POST['lmask']) && !empty($_POST['rmask'])) { print "Can't specify lmask and rmask $lmask<br>"; }
