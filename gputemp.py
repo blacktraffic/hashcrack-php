@@ -8,7 +8,7 @@ with open('/var/hashcrack/temps-py.txt') as inf:
 x = list( range(1, len( data.get('fan_speed') )))
 
 # create a new plot with a title and axis labels
-p = figure(title="GPU state", x_axis_label="last n ticks", y_range=(0, 100), y_axis_label="degrees / percent")
+p = figure(toolbar_location="below", x_axis_label="last n ticks", y_range=(0, 100), y_axis_label="degrees / percent")
 
 # add multiple renderers
 p.line(x, data.get('fan_speed') , legend_label="Fan (%)", line_color="blue", line_width=2)

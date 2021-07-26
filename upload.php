@@ -3,10 +3,20 @@
 require_once 'style.php';
 require_once 'regmap.php';
 require_once 'inc.php';
- 
-$message = ''; 
-if (isset($_POST['uploadBtn']) && $_POST['uploadBtn'] == 'Upload') {
+
+?>
+<div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-6">
+<?php
+
+$message = '';
+$dest_path='';
+
+if (isset($_POST['uploadBtn'])) {
+
     if (isset($_FILES['uploadedFile']) && $_FILES['uploadedFile']['error'] === UPLOAD_ERR_OK) {
+            
         // get details of the uploaded file
         $fileTmpPath = $_FILES['uploadedFile']['tmp_name'];
         $fileName = $_FILES['uploadedFile']['name'];
@@ -20,12 +30,13 @@ if (isset($_POST['uploadBtn']) && $_POST['uploadBtn'] == 'Upload') {
         $jid=$newFileName;
     
         // directory in which the uploaded file will be moved
-        $dest_path = $uploadFileDir . $newFileName;
+        $dest_path = $uploadFileDir . $newFileName;        
 
         $line="UNKNOWN-UPLOAD-FAILED";
  
         if(move_uploaded_file($fileTmpPath, $dest_path)) {
             $message ='File is successfully uploaded.';
+            print "$message\n<br><br>";
         }
     }
 }
@@ -61,7 +72,7 @@ $line=fgets(fopen($dest_path,'r'));
 
 $type=regmap($line);
 
-echo "First line of file is <pre style=\"line-height:1\">".htmlspecialchars($line)."</pre>";
+echo "First line of file is <font face=courier><div style=\"white-space: pre-wrap; font-family:\"Courier New\", Courier; line-height:1\">".htmlspecialchars($line)."</div></font>";
 
             echo "This looks like hash type ".$type;
             echo"<br>";
@@ -70,11 +81,11 @@ echo "First line of file is <pre style=\"line-height:1\">".htmlspecialchars($lin
 
 if (empty($_GET['jid'])) {
     
-            echo "<br>We'll do this:<br><pre style=\"line-height:1\">";
+            echo "<br>We'll do this:<br><font face=courier><div style=\"white-space: pre-wrap; font-family:\"Courier New\", Courier; line-height:1\">";
                 
             $hccmd=rtrim(shell_exec($exec));           
 
-            echo "$hccmd </pre>";         
+            echo "$hccmd </div></font>";         
 
             file_put_contents($dest_path.".status","waiting to run....\n");
             
@@ -94,11 +105,11 @@ if (empty($_GET['jid'])) {
         echo "bad job ID"; die;
     } else {
 
-                echo "<br>We're doing this:<br><pre style=\"line-height:1\">";
+                echo "<br>We're doing this:<br><font face=courier><div style=\"white-space: pre-wrap; font-family:\"Courier New\", Courier; line-height:1\">";
                  $runfile=$hashcatWebDir.$jid.".run";
 
                  echo file_get_contents($runfile);
-                 echo "</pre>";
+                 echo "</div></font>";
     }
 }
 
@@ -118,9 +129,9 @@ if (empty($_GET['jid'])) {
                     
             echo "<br> <a href=\"upload.php?jid=$jid\">refresh this page</a> without queuing the job again | <a href=\"job.php?jid=$jid\">Status</a> in single window  (also, terminate, restart) | <a href=\"final.php?jid=$jid\">Show cracked</a> in single window | <a href=\"graph-it.php?jid=$jid\">Graph frequency</a> | <a href=\"graph.php?jid=$jid\">Graph quality</a> | <a href=\"joblist.php\">View submitted jobs</a> (from cookie)";
 
-            echo "<hr><h2>CRACKED<h2><iframe src=\"final.php?jid=$jid\" width=100% height=200></iframe>";
+            echo "<hr><h2>CRACKED<h2><iframe frameBorder=0 src=\"final.php?jid=$jid\" width=100% height=200></iframe>";
 
-            echo "<hr><h2>STATUS<h2><iframe src=\"job.php?jid=$jid\" width=100% height=500></iframe>";
+            echo "<hr><h2>STATUS<h2><iframe frameBorder=0 src=\"job.php?jid=$jid\" width=100% height=500></iframe>";
 
 // echo $message;
 
@@ -130,6 +141,6 @@ if (empty($_GET['jid'])) {
 
 
 ?>
-
+</div></div>
 </body>
 </html>

@@ -3,6 +3,7 @@ function regmap($hash)
 {
     if (preg_match('/(^|:)(A|a)dministrator:500:[A-Fa-f0-9]{32}:[A-Fa-f0-9]{32}:/',$hash)==1) { return "pwdump:pwdump"; }
     if (preg_match('/\/.+:[A-Fa-f0-9]{32}:/',$hash)==1) { return "1100:DCC"; }
+    if (preg_match('/(^|:)(eyJ0eXAiOiAiS|eyAidHlwIjog)/',$hash)==1) { return "16500:JWT"; }
     if (preg_match('/(^|:)[A-Fa-f0-9]{32}$/',$hash)==1) { return "0:md5"; }
     if (preg_match('/(^|:)\$1\$/',$hash)==1) { return "500:md5crypt"; }
     if (preg_match('/(^|:)\$krb5tgs\$23\$/',$hash)==1) { return "13100:kerberos ticket type 13100"; }
@@ -29,7 +30,7 @@ function regmap($hash)
     if (preg_match('/(^|:)[A-Fa-f0-9]{32}:.{5}$/',$hash)==1) { return "2811:IPB (2811)"; }
     if (preg_match('/(^|:)[A-Fa-f0-9]{32}:[A-Fa-f0-9]{49}$/',$hash)==1) { return "8100:Citrix netscaler"; }
     if (preg_match('/(^|:)[A-Fa-f0-9]{126,130}:[A-Fa-f0-9]{40}$/',$hash)==1) { return "7300:IPMI2"; }
-    if (preg_match('/(^|:)[A-Za-z0-9\./]{43}$/',$hash)==1) { return "5700:Cisco type 4"; }
+    if (preg_match('/(^|:)[A-Za-z0-9\.\/]{43}$/',$hash)==1) { return "5700:Cisco type 4"; }
     if (preg_match('/(^|:)[A-Fa-f0-9]{16}:[A-Fa-f0-9]{32}:[A-Fa-f0-9]{100}/',$hash)==1) { return "5600:NetLMv2"; }
     if (preg_match('/(^|:)[A-Fa-f0-9]{32}:[A-Fa-f0-9]{210}$/',$hash)==1) { return "5600:NetLMv2"; }
     if (preg_match('/(^|:)[a-fA-f0-9]{48}:[A-fa-f0-9]{48}:/',$hash)==1) { return "5500:NetLMv1"; }
@@ -78,7 +79,6 @@ function regmap($hash)
     if (preg_match('/^HCPX.+HCPX/',$hash)==1) { return "2501:wpa-pmk"; }
     if (preg_match('/^HCPX/',$hash)==1) { return "2500:wpa-psk"; }
     if (preg_match('/(^|:)[A-Za-z0-9\=\/\+]{40,48}/',$hash)==1) { return "7000:fortigateb"; }
-    if (preg_match('/(^|:)eyJ/',$hash)==1) { return "16500:JWT"; }
     if (preg_match('/(^|:)\$B\$/',$hash)==1) { return "3711:mediawiki-B"; }
     if (preg_match('/(^|:)\$keychain\$/',$hash)==1) { return "23100:apple-keychain"; }
     if (preg_match('/(^|:)\$pbkdf2-sha512\$/',$hash)==1) { return "20200:python-passlib-pbkdf2-sha512"; }
