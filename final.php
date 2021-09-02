@@ -1,7 +1,9 @@
 <?php
-require_once 'style.php';
+
 require_once 'regmap.php';
 require_once 'inc.php';
+
+header("Content-Type: text/plain; charset=utf-8");
  
 if (isset($_GET['jid'])) {
 
@@ -25,10 +27,8 @@ if (isset($_GET['jid'])) {
         $dothis = "cd ".$hashcatRO." && " . rtrim(shell_exec($exec)) . " --potfile-path ".$hashcatRun."/hashcat.potfile --quiet --show > ".$dest_path.".out.final";
         
         $atq = `$dothis`;
-        print "<pre>";
         
         print file_get_contents($dest_path.".out.final");
-        print "</pre>";
     }
 
 }
