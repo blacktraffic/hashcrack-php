@@ -35,7 +35,7 @@ if (isset($_POST['uploadBtn'])) {
         $line="UNKNOWN-UPLOAD-FAILED";
  
         if(move_uploaded_file($fileTmpPath, $dest_path)) {
-            $message ='File is successfully uploaded.';
+            $message ='File is successfully uploaded for analysis.';
             print "$message\n<br><br>";
         }
     }
@@ -51,7 +51,6 @@ if (isset($_GET['jid'])) {
     }
 }
 
-// add job to list of jobs...
 if ($jid !== '') { 
     $cookie_name = 'hashcrack_jobs';
 
@@ -85,25 +84,13 @@ if (strstr(htmlspecialchars($line), ':::')){
 
 if (empty($_GET['jid'])) {
     
-            echo "<br>We'll do this:<br><font face=courier><div style=\"white-space: pre-wrap; font-family:\"Courier New\", Courier; line-height:1\">";
+            echo "<br>We would have done this:<br><font face=courier><div style=\"white-space: pre-wrap; font-family:\"Courier New\", Courier; line-height:1\">";
                 
             $hccmd=rtrim(shell_exec($exec));           
 
             echo "$hccmd </div></font>";         
 
-            file_put_contents($dest_path.".status","waiting to run....\n");
-            
-            foreach(preg_split("/\n/", $hccmd) as $line){
-                $dothis .= $line." --outfile ".$dest_path.".out --status-timer=1 --status >> $dest_path.status 2>&1\n";
-            }           
-
-            $runme="#!/bin/bash\ncd ".$hashcatRun."\n".$dothis;
-
-            $runfile=$hashcatWebDir.$jid.".run";
-            
-            file_put_contents($runfile, $runme);
-            $res=`chmod u+x $runfile`;
-} else {
+ } else {
 
     if (!preg_match('/^[a-f0-9]+$/', $jid)) {
         echo "bad job ID"; die;
@@ -120,22 +107,10 @@ if (empty($_GET['jid'])) {
             //print "$runme";
             print "</pre>";
 
-if (empty($_GET['jid'])) {
-    print "<p>Queuing job now...<br>";
-    $atq = `tsp $runfile`;
 
-    print "<p><h1>You are number ".`tsp -l | grep queued | wc -l`." in the queue</h1>";
-} else {
-    if (!preg_match('/^[a-f0-9]+$/', $jid)) {
-        echo "bad job ID"; die; 
-    } else {        
-        print "<p>Not queuing because of GET request - use status &gt; restart if needed. <br>";
-    }
-}
+echo "<p><p><b>Please bookmark this link <br> <a href=\"upload-lookup.php?jid=$jid\">upload.php?jid=$jid</a></b> if you want to check on the job later on.</b><p>";  
 
-echo "<p><b>Please bookmark this link <br> <a href=\"upload.php?jid=$jid\">upload.php?jid=$jid</a></b> if you want to check on the job later on.<p>";  
-
-            echo "<br> <a href=\"upload.php?jid=$jid\">refresh this page</a> without queuing the job again | <a href=\"job.php?jid=$jid\">Status</a> in single window  (also, terminate, restart) | <a href=\"final.php?jid=$jid\">Show cracked</a> in single window | <a href=\"graph-it.php?jid=$jid\">Graph frequency</a> | <a href=\"graph.php?jid=$jid\">Graph quality</a> | <a href=\"joblist.php\">View submitted jobs</a> (from cookie)";
+            echo "<h2>STATUS</h2><br> <a href=\"upload.php?jid=$jid\">refresh this page</a> without queuing the job again | <a href=\"job.php?jid=$jid\">Status</a> in single window  (also, terminate, restart) | <a href=\"final.php?jid=$jid\">Show cracked</a> in single window | <a href=\"graph-it.php?jid=$jid\">Graph frequency</a> | <a href=\"graph.php?jid=$jid\">Graph quality</a> | <a href=\"joblist.php\">View submitted jobs</a> (from cookie)";
 
             echo "<hr><h2>CRACKED<h2><iframe frameBorder=0 src=\"final.php?jid=$jid\" width=100% height=200></iframe>";
 

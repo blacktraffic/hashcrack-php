@@ -4,7 +4,7 @@ function regmap($hash)
     if (preg_match('/(^|:)(A|a)dministrator:500:[A-Fa-f0-9]{32}:[A-Fa-f0-9]{32}:/',$hash)==1) { return "pwdump:pwdump"; }
     if (preg_match('/\/.+:[A-Fa-f0-9]{32}:/',$hash)==1) { return "1100:DCC"; }
     if (preg_match('/(^|:)(eyJ0eXAiOiAiS|eyAidHlwIjog)/',$hash)==1) { return "16500:JWT"; }
-    if (preg_match('/(^|:)[A-Fa-f0-9]{32}$/',$hash)==1) { return "0:md5"; }
+    if (preg_match('/(^|:)[A-Fa-f0-9]{32}$/',$hash)==1) { return "1000:nltm"; }
     if (preg_match('/(^|:)\$1\$/',$hash)==1) { return "500:md5crypt"; }
     if (preg_match('/(^|:)\$krb5tgs\$23\$/',$hash)==1) { return "13100:kerberos ticket type 13100"; }
     if (preg_match('/(^|:)\$krb5tgs\$17\$/',$hash)==1) { return "19600:kerberos ticket type 19600"; }

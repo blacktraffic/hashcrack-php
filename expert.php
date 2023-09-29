@@ -1,4 +1,4 @@
-x<?php
+<?php
 require_once 'style.php';
 require_once 'regmap.php';
 require_once 'inc.php';
@@ -117,6 +117,10 @@ if (isset($_POST['uploadBtn']) ) {
             print "</div></font>";
 
             if ($_POST['uploadBtn'] == 'Go') {
+
+	        // log in cookie
+		log_job_in_cookie($jid);
+
                 $atq = `tsp $runfile`;
 
                             echo "<br> <a href=\"upload.php?jid=$jid\">refresh this page</a> without queuing the job again | <a href=\"job.php?jid=$jid\">Status</a> in single window  (also, terminate, restart) | <a href=\"final.php?jid=$jid\">Show cracked</a> in single window | <a href=\"graph-it.php?jid=$jid\">Graph frequency</a> | <a href=\"graph.php?jid=$jid\">Graph quality</a>";

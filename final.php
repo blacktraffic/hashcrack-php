@@ -3,7 +3,7 @@
 require_once 'regmap.php';
 require_once 'inc.php';
 
-header("Content-Type: text/plain; charset=utf-8");
+header("Content-Type: text/plain");
  
 if (isset($_GET['jid'])) {
 
@@ -22,9 +22,10 @@ if (isset($_GET['jid'])) {
 
         $hccmd=rtrim(shell_exec($exec));
 
-        //print "<pre>$hccmd</pre>";
         
         $dothis = "cd ".$hashcatRO." && " . rtrim(shell_exec($exec)) . " --potfile-path ".$hashcatRun."/hashcat.potfile --quiet --show > ".$dest_path.".out.final";
+
+	//echo "Running: <pre>".$dothis."</pre>";
         
         $atq = `$dothis`;
         
@@ -39,5 +40,4 @@ else
 
 ?>
 
-</body>
-</html>
+

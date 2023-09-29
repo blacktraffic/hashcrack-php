@@ -9,13 +9,27 @@ require_once 'inc.php';
           <div class="col-md-3"></div>
           <div class="col-md-6">
 
-<center><h1>Hashcrack</h1></center>
+<h1>Hashcrack 2 - the biggest one </h1>
 
-<center>     <p>Any issues, email or IM jamie.riden@ioactive.co.uk</p></center>
+<p>Look at <a href="joblist.php">previous jobs I've submitted.</a><p>
+
+<p><a href="lookup.php">Look up results by resubmitting hashfile</a> - if something crashed, or you lost the bookmark. This won't rerun the job.<p>
+
+<p>Look at some <a href="recipes.php">recipes</a> - some common job types, like 1-8 chars ASCII</p>
+
+<p>Our rules and dicts available for <a href="downloads/"> download here </a><p>
+
+<p>This is the 6 x NVIDIA 4090 rig, around 8 times as fast as the "old" hashcrack/crackathon. Everything has been migrated from the old one afaik.</p>
+
+<p>A small project by jamie.riden@ioactive.com; please get in touch if you have problems or questions.<p>
+
+
+<p><b>NB: Hashcat does not understand full /etc/shadow files - you just need the first two fields, or "cut -f1,2 -d':'"</b></p>
+              <p>You should not mix hash types in the same file; it will identify the type based on the first line it sees, and anything else will be ignored.</p>
 
 <h2>Option 1- &quot;I'm feeling lucky&quot;<p> <!--'--></h2>
 
-<p>Currently, anything that looks like MD5/NTLM will be interpreted as MD5; as a workaround, NTLM can be submitted in pwdump format, ie. 'Administrator:500:LM hash:NTLM hash:::'</p>
+<p>Update: NTLM is assumed for that shape of hash now - if you have MD5, a. what year is it? b. you need to override manually with type 0.</p> 
 
   <form method="POST" action="upload.php" enctype="multipart/form-data">
     <div class="upload-wrapper">
@@ -29,6 +43,24 @@ require_once 'inc.php';
   </form>
 
 <hr>
+<h2>Option 1.1 - Full DESCRYPT - or - all NTLM up to 8 chars</h2>
+
+I need to search all of descrypt space, I realise this might take best part of a week. (It is recommended to try option 1 before this, it might be a simple password.)
+<p>Alternatively, this will cover all ASCII NTLM up to 8 chars, and will take about 10 hours to do so.
+
+ <form method="POST" action="expert.php" enctype="multipart/form-data">
+     <div class="upload-wrapper">
+       Pick a hash file for automated cracking...
+
+      <label for="file-upload"><input class="btn" type="file" id="file-upload" name="uploadedFile"></label>
+Full descrypt mask: <label class="btn" for="mask"><input type="text" value="?a?a?a?a?a?a?a?a" name="mask"></label>
+    <input type="submit" name="uploadBtn" class="btn btn-primary" value="Go" />
+    <br>
+                                                                       </div>
+  </form>
+
+<hr>
+
 <h2>Option 2: No, I need fine-grained control</h2>
 
  <form method="POST" action="expert.php" enctype="multipart/form-data">
@@ -67,6 +99,7 @@ require 'rules.php';
 ?>
 </select>
                   
+<hr>
 
 <br><br>OR, specify left and right dicts<br>
 Optional left dict:
@@ -113,7 +146,8 @@ print "<iframe border=none width=100% height=640 frameBorder=0 src=\"stats.php\"
 
 <img src="./smallbt.png" width=150><br>
         &nbsp;&nbsp;A black traffic production
-
+<p>
+A tiny php front-end which runs <a href="https://github.com/blacktraffic/hashcrack">hashcrack</a> for you.
 <p><p>
 
 <i><font size=-2>"Numbers is hard and real and they never have feelings<br>

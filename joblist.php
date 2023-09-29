@@ -2,6 +2,20 @@
 require_once 'style.php';
 require_once 'inc.php';
 
+?>
+
+<body>
+
+<div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-6">
+
+<h1>Jobs I've Submitted</h1>
+
+<p>See cookie 'hashcrack_jobs'</p>
+
+<?php
+
 $cookie_name = 'hashcrack_jobs';
 
 if(!isset($_COOKIE[$cookie_name])) {
@@ -24,9 +38,7 @@ if(!isset($_COOKIE[$cookie_name])) {
             
             $filepath=$uploadFileDir."/".$jid.".status";
             
-            echo "<hr><h2>CRACKED<h2><iframe src=\"final.php?jid=$jid\" width=100% height=100></iframe>";
-            
-            echo "<hr><h2>STATUS<h2><iframe src=\"job.php?jid=$jid&short=true\" width=100% height=100></iframe>";
+            echo "<hr><h2>CRACKED<h2><iframe src=\"final.php?jid=$jid\" width=100% height=100></iframe>";            
         }
     }
     
